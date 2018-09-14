@@ -1,0 +1,810 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>EE6485 Computer Vision - Python Tutorial</title>
+
+        <meta name="description" content="A carsh course in Python for students taking EE6485.">
+        <meta name="author" content="Raul Chun-Hung Chao">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/white.css" id="theme">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <style>
+            .reveal.slide .slides > section, .reveal.slide .slides > section > section {
+              min-height: 100% !important;
+              display: flex !important;
+              flex-direction: column !important;
+              justify-content: center !important;
+              position: absolute !important;
+              top: 0 !important;
+              align-items: center !important;
+            }
+            section > h3 {
+              position: absolute !important;
+              top: 50px !important;
+              left: -100px !important;
+              text-transform: none !important;
+            }
+            .print-pdf .reveal.slide .slides > section, .print-pdf .reveal.slide .slides > section > section {
+              min-height: 770px !important;
+              position: relative !important;
+            }
+        </style>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Python Tutorial</h2>
+                    <p>
+                        <small>Created by Raul C. Chao for EE6485</small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Acknowledgments</h2>
+                    <p>
+                        <span style="font-size: 24px;">The materials from this class rely significantly on content prepared by other authors, including</span>
+                        <ul style="font-size: 24px">
+                            <li><a href="http://cs231n.github.io/python-numpy-tutorial/#python-lists">CS231n - Python Numpy Tutorial</a> by <a href="http://cs.stanford.edu/people/jcjohns/">Justin Johnson</a></li>
+                            <li><a href="https://github.com/kuleshov/cs228-material/blob/master/tutorials/python/cs228-python-tutorial.ipynb">CS228 - Python Tutorial (iPython Notebook)</a> by <a href="http://web.stanford.edu/~kuleshov/">Volodymyr Kuleshov</a> and <a href="https://symsys.stanford.edu/viewing/symsysaffiliate/21335">Isaac Caswell</a></li>
+                            <li><a href="http://shop.oreilly.com/product/0636920028659.do">Introducing Python - Modern Computing in Simple Packages</a> by <a href="https://www.oreilly.com/pub/au/2909">Bill Lubanovic</a></li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Why Python?</h3>
+                    <p>
+                        <ul>
+                            <li>a versatile multi-purpose and high-level language</li>
+                            <li><strong>READABLE</strong></li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section>
+                    <h3 style="top: 50% !important; left: -10%;">Basic Data Types</h3>
+                    <p style="position: absolute; top: 57.5%; left: -5%;">
+                        <small>Booleans, Numbers, and Strings</small>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Booleans</h3>
+                    <small>Use English words rather than <code>&&</code> or <code>||</code></small>
+                    <pre><code class="python" data-trim contenteditable>
+t = True
+f = False
+print(type(t)) # Prints "&lt;class 'bool'&gt;"
+print(t and f) # Logical AND; prints "False"
+print(t or f)  # Logical OR; prints "True"
+print(not t)   # Logical NOT; prints "False"
+print(t != f)  # Logical XOR; prints "True"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Numbers - Operators</h3>
+                    <table style="font-size: 0.75em;">
+                        <thead>
+                            <tr>
+                                <th align="center">Operator</th>
+                                <th align="center">Description</th>
+                                <th align="center">Example</th>
+                                <th align="center">Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="center">+</td>
+                                <td align="center">addition</td>
+                                <td align="center">5 + 8</td>
+                                <td align="center">13</td>
+                            </tr>
+                            <tr>
+                                <td align="center">-</td>
+                                <td align="center">subtraction</td>
+                                <td align="center">90 - 10</td>
+                                <td align="center">80</td>
+                            </tr>
+                            <tr>
+                                <td align="center">*</td>
+                                <td align="center">multiplication</td>
+                                <td align="center">4 * 7</td>
+                                <td align="center">28</td>
+                            </tr>
+                            <tr>
+                                <td align="center">/</td>
+                                <td align="center">floating point division</td>
+                                <td align="center">7 / 2</td>
+                                <td align="center">3.5</td>
+                            </tr>
+                            <tr style="background-color: gold">
+                                <td align="center">//</td>
+                                <td align="center">integer (truncating) division</td>
+                                <td align="center">7 // 2</td>
+                                <td align="center">3</td>
+                            </tr>
+                            <tr>
+                                <td align="center">%</td>
+                                <td align="center">modulus (remainder)</td>
+                                <td align="center">7 % 2</td>
+                                <td align="center">1</td>
+                            </tr>
+                            <tr style="background-color: gold">
+                                <td align="center">**</td>
+                                <td align="center">exponentiation</td>
+                                <td align="center">3 ** 4</td>
+                                <td align="center">81</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>Numbers - Operators</h3>
+                    <pre><code class="python" data-trim contenteditable>
+x = 3
+print(type(x)) # Prints "&lt;class 'int'&gt;"
+print(x)       # Prints "3"
+print(x + 1)   # Addition; prints "4"
+print(x ** 2)  # Exponentiation; prints "9"
+                    </code></pre>
+                    <pre><code class="python" data-trim contenteditable>
+x += 1
+print(x)  # Prints "4"
+x *= 2
+print(x)  # Prints "8"
+                    </code></pre>
+                    <pre><code class="python" data-trim contenteditable>
+y = 2.5
+print(type(y)) # Prints "&lt;class 'float'&gt;"
+print(y, y + 1, y * 2, y ** 2) # Prints "2.5 3.5 5.0 6.25"
+
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Numbers - Type Conversions</h3>
+                    <pre><code class="python" data-trim contenteditable>
+# Convert from Booleans
+print(int(True))    # Prints "1"
+print(int(False))   # Prints "0"
+                    </code></pre>
+                    <pre><code class="python" data-trim contenteditable>
+# Convert from Integers / Floats
+print(int(98.6))    # Prints "98"
+print(int(1.0e4))   # Prints "10000"
+print(float(98))    # Prints "98.0"
+                    </code></pre>
+                    <pre><code class="python" data-trim contenteditable>
+# Convert from Strings
+print(int('99'))    # Prints "99"
+print(int('-23'))   # Prints "23"
+print(int('+12'))   # Prints "12"
+print(float('98.6'))    # Prints "98.6"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Strings</h3>
+                    <small>Create with Quotes</small>
+                    <pre><code class="python" data-trim contenteditable>
+hello = 'hello'    # String literals can use single quotes
+world = "world"    # or double quotes; it does not matter.
+print(hello)       # Prints "hello"
+                    </code></pre>
+                    <small>Concatenate with +</small>
+                    <pre><code class="python" data-trim contenteditable>
+hw = hello + ' ' + world  # String concatenation
+print(hw)  # Prints "hello world"
+                    </code></pre>
+                    <small>Duplicate with *</small>
+                    <pre><code class="python" data-trim contenteditable>
+print((hello + ' ') * 3)    # Prints "hello hello hello "
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Strings</h3>
+                    <small>Extract characters with []</small>
+                    <pre><code class="python" data-trim contenteditable>
+letters = 'abcdefghijklmnopqrstuvwxyz'
+print(letters[3])   # Prints "d"
+print(letters[20:]) # Slicing, prints "uvwxyz"
+print(letters[7:9]) # Slicing, prints "hi"
+                    </code></pre>
+                    <small>Useful methods</small>
+                    <pre><code class="python" data-trim contenteditable>
+hw = hello + ' ' + world  # String concatenation
+print(hw)  # Prints "hello world"
+                    </code></pre>
+                    <small>Duplicate with *</small>
+                    <pre><code class="python" data-trim contenteditable>
+print((hello + ' ') * 3)    # Prints "hello hello hello "
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3 style="top: 50% !important; left: -10%;">Containers</h3>
+                    <p style="position: absolute; top: 57.5%; left: -5%;">
+                        <small>Python includes built-in container types to facilitate data storage and manipulation.</small>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Lists</h3>
+                    <small>Creation syntax</small>
+                    <pre><code class="python" data-trim contenteditable>
+ls = [2, 'dog', 5] # Create list, can be of different types
+print(ls[1], ls) # Prints "'dog' [2, 'dog', 5]"
+                    </code></pre>
+                    <small>Count negative index</small>
+                    <pre><code class="python" data-trim contenteditable>
+print(ls[-1]) # Prints "5"
+                    </code></pre>
+                    <small>Add to end of list</small>
+                    <pre><code class="python" data-trim contenteditable>
+ls.append('cat') # Add element to end of list with append()
+print(ls) # Prints "[2, 'dog', 5, 'cat']"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Lists - Slicing</h3>
+                    <small>Range function - creates a list of integers. <br>
+                    <i>range(n)</i> creates a list of length <i>n</i>, starting from 0
+                    </small>
+                    <pre><code class="python" data-trim contenteditable>
+ns = list(range(4)) # Note: range() returns an 'iterable' type
+print(ns) # Prints "[0, 1, 2, 3]"
+                    </code></pre>
+                    <small>Index slicing methods</small>
+                    <pre><code class="python" data-trim contenteditable>
+print(ns[1:3]) # Get index 1 to 3 (exclusive); prints "[1, 2]"
+print(ns[1:]) # Get index 1 to end; prints "[1, 2, 3]"
+print(ns[:1]) # Get start to index 1 (exclusive); prints "[0]"
+print(ns[:-1]) # Use negative slice index; prints "[0, 1, 2]"
+                    </code></pre>
+                    <small>Sublist reassignment</small>
+                    <pre><code class="python" data-trim contenteditable>
+ns[1:3] = [5, 6] # Assign part of a list to a slice
+print(ns) # Prints "[0, 5, 6, 3]"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Lists - Loops</h3>
+                    <small>Basic looping</small>
+                    <pre><code class="python" data-trim contenteditable>
+students = ['alice', 'bob', 'jean']
+for student in students:
+    print(student) # Prints each student on a separate line
+                    </code></pre>
+                    <small>Use <i>enumerate()</i> to access list indices inside a loop</small>
+                    <pre><code class="python" data-trim contenteditable>
+students = ['alice', 'bob', 'jean']
+for idx, student in enumerate(students):
+    print("#%d: %s" % (idx + 1, student)) 
+    # Prints starting from "#1: alice" on separate lines
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>List comprehensions</h3>
+                    <pre><code class="python" data-trim contenteditable>
+# We often use loops to operate on every element of a list.
+nums = [0, 1, 2, 3, 4]
+squares = []
+for x in nums:
+    squares.append(x ** 2)
+print(squares)   # Prints [0, 1, 4, 9, 16]
+                    </code></pre>
+                    <small>The above code can be written in the form of a list comprehension</small>
+                    <pre><code class="python" data-trim contenteditable>
+nums = [0, 1, 2, 3, 4]
+squares = [x ** 2 for x in nums] # More concise than a loop
+print(squares)   # Prints [0, 1, 4, 9, 16]
+                    </code></pre>
+                    <small>List comprehensions can include conditions</small>
+                    <pre><code class="python" data-trim contenteditable>
+nums = [0, 1, 2, 3, 4]
+even_squares = [x ** 2 for x in nums if x % 2 == 0]
+print(even_squares)  # Prints "[0, 4, 16]"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Dictionaries</h3>
+                    <small>Dictionaries store data in (key, value) pairs, as "associative memory".</small>
+                    <pre><code class="python" data-trim contenteditable>
+# Create dictionary with data
+scores = {'alice': 94, 'jean': 63, 'bob': 83} 
+print(scores['jean']) # Prints entry "63" from dictionary
+print('bob' in scores) # Check if key exists; prints "True"
+                    </code></pre>
+                    <small>Set and delete entries from dictionary</small>
+                    <pre><code class="python" data-trim contenteditable>
+scores['alice'] = 70 # Set entry in dictionary
+del scores['alice'] # Remove elements from dictionary
+                    </code></pre>
+                    <small>Handle possible errors in dictionary key-searching</small>
+                    <pre><code class="python" data-trim contenteditable>
+print(scores['sid']) # KeyError: key 'sid' doesn't exist
+print(scores.get('sid', 'N/A')) # give default; prints "N/A"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Dictionaries - Loops</h3>
+                    <small>Basic looping</small>
+                    <pre><code class="python" data-trim contenteditable>
+d = {'NTHU': 'Hsinchu', 'NCKU': 'Tainan', 'NTU': 'Taipei'}
+for university in d:
+    location = d[university]
+    print('%s is in %s' % (university, location))
+# Prints "NTHU is in Hsinchu", "NCKU is in Tainan", etc...
+                    </code></pre>
+                    <small>Use <i>items()</i> to get keys and values simultaneously</small>
+                    <pre><code class="python" data-trim contenteditable>
+d = {'NTHU': 'Hsinchu', 'NCKU': 'Tainan', 'NTU': 'Taipei'}
+for university, location in d.items():
+    print('%s is in %s' % (university, location))
+# Prints "NTHU is in Hsinchu", "NCKU is in Tainan", etc...
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Dictionary comprehensions</h3>
+                    <small>Similar to list comprehensions - construct dictionaries in less code</small>
+                    <pre><code class="python" data-trim contenteditable>
+nums = [0, 1, 2, 3, 4]
+even_num_to_square = {x: x ** 2 for x in nums if x % 2 == 0}
+print(even_num_to_square)  # Prints "{0: 0, 2: 4, 4: 16}"
+                    </code></pre>
+                    <small>Quickly reverse key-value pairs</small>
+                    <pre><code class="python" data-trim contenteditable>
+d = {'NTHU': 'Hsinchu', 'NCKU': 'Tainan', 'NTU': 'Taipei'}
+d_reversed = {value: key for key, value in d.items()}
+                    </code></pre>
+                    <small>If-else inside dictionary comprehensions</small>
+                    <pre><code class="python" data-trim contenteditable>
+bday_data = ["Jan 2 1970", "Aug 1976", "Sept 14 2003"]
+spl = [x.split() for x in bday_data]
+yrs = {' '.join(x): x[2] if len(x) == 3 else "X" for x in spl}
+print(yrs)
+# Prints "{'Jan 2 1970': '1970', 'Aug 1976': 'X', etc...}"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Tuples</h3>
+                    <small>Tuple - an <i>immutable</i> ordered list of values.</small>
+                    <pre><code class="python" data-trim contenteditable>
+t = (5, 6)        # Create a tuple
+print(type(t))    # Prints "&ltclass 'tuple'&gt"
+                    </code></pre>
+                    <small>Lists cannot be dictionary keys, but tuples can</small>
+                    <pre><code class="python" data-trim contenteditable>
+d = {(x, x + 1): x for x in range(10)} # Dict with tuple keys
+print(d[t])       # Prints "5"
+print(d[(1, 2)])  # Prints "1"
+                    </code></pre>
+                </section>
+
+                <section>
+                        <h3 style="top: 50% !important; left: -10%;">Functions and Classes</h3>
+                </section>
+
+                <section>
+                    <h3>Functions</h3>
+                    <small>Python functions are defined using the <code>def</code> keyword.</small>
+                    <pre><code class="python" data-trim contenteditable>
+def hello(name, loud=False):
+    if loud:
+        print("HELLO, {}!".format(name.upper()))
+    else:
+        print("Hello, {}".format(name))
+
+hello('Bob') # Prints "Hello, Bob"
+hello('Fred', loud=True)  # Prints "HELLO, FRED!"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Classes</h3>
+                    <small>Python classes are defined using the <code>class</code> keyword.</small>
+                    <pre><code class="python" data-trim contenteditable>
+class Greeter(object):
+    # Constructor
+    def __init__(self, name):
+        self.name = name  # Create an instance variable
+
+    # Instance method
+    def greet(self, loud=False):
+        if loud:
+             print("HELLO, {}!".format(self.name.upper()))
+        else:
+            print("Hello, {}".format(self.name))
+
+g = Greeter('Fred')  # Construct an instance of Greeter class
+g.greet()            # Call an instance method; 
+                     # prints "Hello, Fred"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3 style="top: 50% !important; left: -10%;">Numpy</h3>
+                </section>
+
+                <section>
+                    <h3>Arrays</h3>
+                    <small>initialize numpy arrays from nested Python lists</small>
+                    <pre><code class="python" data-trim contenteditable>
+import numpy as np
+
+a = np.array([1, 2, 3])   # Create a 1-D array
+print(type(a))            # Prints "&lt;class 'numpy.ndarray'&gt;"
+print(a.shape)            # Prints "(3,)"
+                    </code></pre>
+                    <small>access with square brackets</small>
+                    <pre><code class="python" data-trim contenteditable>
+print(a[0], a[1], a[2])   # Prints "1 2 3"
+a[0] = 5                  # Change an element of the array
+print(a)                  # Prints "[5, 2, 3]"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Arrays</h3>
+                    <small>a 2-D example</small>
+                    <pre><code class="python" data-trim contenteditable>
+b = np.array([[1, 2, 3], [4, 5, 6]])    # Create a 2-D array
+print(b.shape)                          # Prints "(2, 3)"
+print(b[0, 0], b[0, 1], b[1, 0])        # Prints "1 2 4"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Arrays</h3>
+                    <small>other useful functions for creating an array</small>
+                    <pre><code class="python" data-trim contenteditable>
+a = np.zeros((2, 2))   # Create an array of all zeros
+print(a)               # Prints "[[ 0.  0.]
+                       #          [ 0.  0.]]"
+
+b = np.ones((1, 2))    # Create an array of all ones
+print(b)               # Prints "[[ 1.  1.]]"
+
+c = np.eye(2)          # Create a 2x2 identity matrix
+print(c)               # Prints "[[ 1.  0.]
+                       #          [ 0.  1.]]"
+
+e = np.random.random((2, 2))  # Create a 2x2 array 
+                              # filled with random values
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Array Indexing</h3>
+                    <small>Slicing: similar to Python list. Must specify a slice for each dimension.</small>
+                    <pre><code class="python" data-trim contenteditable>
+# Create the following 2-D array with shape (3, 4)
+# [[ 1  2  3  4]
+#  [ 5  6  7  8]
+#  [ 9 10 11 12]]
+a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+
+# Use slicing to pull out the subarray consisting of the
+# first 2 rows and columns 1 and 2; b is the following 
+# array of shape (2, 2):
+# [[2 3]
+#  [6 7]]
+b = a[:2, 1:3]
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Array Indexing</h3>
+                    <small>Boolean array indexing</small>
+                    <pre><code class="python" data-trim contenteditable>
+# Create the following 2-D array with shape (3, 4)
+# [[ 1  2  3  4]
+#  [ 5  6  7  8]
+#  [ 9 10 11 12]]
+a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+
+# We use boolean array indexing to construct a 1-D array
+# consisting of the elements of a > 7
+print(a[a > 7])  # Prints "[8 9 10 11 12]"
+
+# Modify the array with boolean array indexing
+# [[ 1  2  3  4]
+#  [ 5  6  7  7]
+#  [ 7  7  7  7]]
+a[a > 7] = 7
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Datatypes</h3>
+                    <pre><code class="python" data-trim contenteditable>
+x = np.array([1, 2])   # Let numpy choose the datatype
+print(x.dtype)         # Prints "int64"
+
+x = np.array([1.0, 2.0])   # Let numpy choose the datatype
+print(x.dtype)             # Prints "float64"
+
+x = np.array([1, 2],
+             dtype=np.int64) # Force a particular datatype
+print(x.dtype)               # Prints "int64"
+                    </code></pre>
+                    <small><a href="http://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html">data type objects documentation</a></small>
+                </section>
+
+                <section>
+                    <h3>Array Math</h3>
+                    <small>Basic mathematical functions operate <strong>element-wisely</strong> on arrays</small>
+                    <pre><code class="python" data-trim contenteditable>
+x = np.array([[1, 2], [3, 4]], dtype=np.float64)
+y = np.array([[5, 6], [7, 8]], dtype=np.float64)
+
+# Elementwise sum; both produce the array
+# [[ 6.0  8.0]
+#  [10.0 12.0]]
+print(x + y)
+print(np.add(x, y))
+
+# [[ 1.          1.41421356]
+#  [ 1.73205081  2.        ]]
+print(np.sqrt(x))
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Array Math</h3>
+                    <small><code>*</code> is element-wise multiplication</small>
+                    <small><code>dot</code> for inner products of vectors, vector-matrix mul, and matrices mul</small>
+                    <pre><code class="python" data-trim contenteditable>
+x = np.array([[1, 2], [3, 4]], dtype=np.float64)
+y = np.array([[5, 6], [7, 8]], dtype=np.float64)
+
+# Elementwise product; both produce the array
+# [[ 5.0 12.0]
+#  [21.0 32.0]]
+print(x * y)
+print(np.multiply(x, y))
+
+# Matrix / matrix product
+# [[19 22]
+#  [43 50]]
+print(x.dot(y))
+print(np.dot(x, y))
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Array Math</h3>
+                    <small>useful function: <code>sum</code></small>
+                    <pre><code class="python" data-trim contenteditable>
+x = np.array([[1,2],[3,4]])
+
+print(np.sum(x))  # Compute sum of all elements; prints "10"
+print(np.sum(x, axis=0))  # Compute sum of each column; prints "[4 6]"
+print(np.sum(x, axis=1))  # Compute sum of each row; prints "[3 7]"
+                    </code></pre>
+                    <small>for other mathematical functions, read the <a href="https://docs.scipy.org/doc/numpy/reference/routines.math.html">documentation</a></small>
+                </section>
+
+                <section>
+                    <h3>Broadcasting</h3>
+                    <small>think: adding a constant vector to each row of a matrix</small>
+                    <pre><code class="python" data-trim contenteditable>
+# We will add the vector v to each row of the matrix x,
+# storing the result in the matrix y
+x = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]])
+v = np.array([1, 0, 1])
+y = np.empty_like(x) # Create an empty matrix with same shape as x
+# Add the vector v to each row of the matrix x
+for i in range(4):
+    y[i, :] = x[i, :] + v
+# Now y is the following
+# [[ 2  2  4]
+#  [ 5  5  7]
+#  [ 8  8 10]
+#  [11 11 13]]
+print(y)
+                    </code></pre>
+                    <small style="color: red">undesired, loop could be slow</small>
+                </section>
+
+                <section>
+                    <h3>Broadcasting</h3>
+                    <small>use broadcasting:</small>
+                    <pre><code class="python" data-trim contenteditable>
+x = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]])
+v = np.array([1, 0, 1])
+y = x + v  # Add v to each row of x using broadcasting
+print(y)   # Prints "[[ 2  2  4]
+           #          [ 5  5  7]
+           #          [ 8  8 10]
+           #          [11 11 13]]"
+                            
+                    </code></pre>
+                    <small style="text-align: left">
+                        The line <code>y = x + v</code> works even though <code>x</code> has shape <code>(4, 3)</code> and <code>v</code> has shape <code>(3,)</code> due to broadcasting;
+                        read the <a href="https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html">documentation</a> for the broadcasting rules.
+                    </small>
+                </section>
+
+                <section>
+                    <h3 style="top: 50% !important; left: -10%;">SciPy</h3>
+                    <p style="position: absolute; top: 57.5%; left: -5%;">
+                        <small style="text-align:left;">Scipy builds on NumPy's multidimensional array computing resources to provide functions useful for scientific and engineering applications.</small>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Image operations</h3>
+                    <small>Example task:</small>
+                    <small style="text-align:left;"><br>1) Read image from disk into numpy array<br>2) Tint and resize image<br>3) Write numpy array back to disk as an image</small>
+                </section>
+
+                <section>
+                    <h3>(1) Read image from disk into numpy array</h3>
+                    <small>Find an image you'd like to use (JPG/PNG/GIF/BMP/TIFF)<br></small>
+                    <img src="assets/cat.jpg" style="max-height:7em">
+                    <pre><code class="python" data-trim contenteditable>
+from scipy.misc import imread, imsave, imresize
+
+img = imread('assets/cat.jpg') # Read image into numpy array
+print(img.dtype, img.shape)  # Prints "uint8 (400, 248, 3)"
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>(2) Tint and resize image</h3>
+                    <small>Tint the image by scaling each color channel (R,G,B) by a different constant.<br>
+                    We multiply the the image array of shape (400, 248, 3) by array of shape (3,).<br>
+                    Via numpy broadcasting, the red channel is multiplied by 1, green by 0.95, and blue by 0.9.</small>
+                    <pre><code class="python" data-trim contenteditable>
+img_tinted = img * [1, 0.95, 0.9]
+                    </code></pre>
+                    <small>Resize the image to 300 x 300 pixels</small>
+                    <pre><code class="python" data-trim contenteditable>
+img_tinted = imresize(img_tinted, (300, 300))                    
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>(3) Write image back to disk</h3>
+                    <pre><code class="python" data-trim contenteditable>
+imsave('assets/cat_tinted.jpg', img_tinted)                    
+                    </code></pre>
+                    <small>The result:</small>
+                    <img src="assets/comparison.png" style="max-height:8em">
+                </section>
+
+                <section>
+                    <h3 style="top: 50% !important; left: -10%;">Matplotlib</h3>
+                    <p style="position: absolute; top: 57.5%; left: -5%;">
+                        <small style="text-align:left;">Python's plotting library. The <i>matplotlib.pyplot</i> module's plotting system is similar to MATLAB's.</small>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Plotting</h3>
+                    <small>Plot 2D data with the <i>plot()</i> function.</small>
+                    <pre><code class="python" data-trim contenteditable>
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Compute the x and y coordinates for points on a sine curve
+x = np.arange(0, 3 * np.pi, 0.1)
+y = np.sin(x)
+
+# Plot the points using matplotlib
+plt.plot(x, y)
+plt.show()  # You must call plt.show() to make graphics appear.                    
+                    </code></pre>
+                    <small>Resulting plot:</small>
+                    <img src="assets/sine.png" style="max-height:3.5em">
+                </section>
+
+                <section>
+                    <h3>Plotting - Multiple lines + labeling</h3>
+                    <pre><code class="python" data-trim contenteditable>
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Compute the x and y coordinates for points on sine and cosine curves
+x = np.arange(0, 3 * np.pi, 0.1)
+y_sin = np.sin(x)
+y_cos = np.cos(x)
+                    </code></pre>
+                    <pre><code class="python" data-trim contenteditable>
+# Plot multiple lines with labels
+plt.plot(x, y_sin)
+plt.plot(x, y_cos)
+plt.xlabel('x axis label')
+plt.ylabel('y axis label')
+plt.title('Sine and Cosine')
+plt.legend(['Sine', 'Cosine'])
+plt.show()                    
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Plotting - Multiple lines + labeling</h3>
+                    <small>Resulting plot:</small>
+                    <img src="assets/sine_cosine.png">
+                </section>
+
+                <section>
+                    <h3>Things You should Know</h3>
+                    <ul>
+                        <li><a href="https://nedbatchelder.com/text/names.html">Facts and myths about Python names and values</a></li>
+                        <li><a href="https://www.python.org/dev/peps/pep-0008/">PEP 8 -- Style Guide for Python Code</a></li>
+                        <li>The Zen of Python</li>
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/search/search.js', async: true },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+    
+        </script>
+
+    </body>
+</html>
